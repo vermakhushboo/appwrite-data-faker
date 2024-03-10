@@ -1,0 +1,17 @@
+{
+    "name": "khushbooverma/appwrite-data-faker",
+    "autoload": {
+        "psr-4": {
+            "Khushbooverma\\AppwriteDataFaker\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Khushboo Verma"
+        }
+    ],
+    "require": {
+        "symfony/console": "^7.0",
+        "appwrite/appwrite": "^11.0"
+    }
+}
