@@ -2,6 +2,7 @@
 
 require 'vendor/autoload.php';
 require 'src/client.php';
+require 'src/tools/faker/AppwriteFakerTool.php';
 
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Input\InputInterface;
@@ -11,6 +12,10 @@ use Symfony\Component\Console\Question\Question;
 use Appwrite\Faker\Client as FakerClient;
 use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Question\ConfirmationQuestion;
+
+$GLOBALS['APPWRITE_ENDPOINT'];
+$GLOBALS['APPWRITE_API_KEY'];
+$GLOBALS['APPWRITE_PROJECT_ID'];
 
 class AppInitializer extends Application
 {
@@ -171,7 +176,6 @@ EOF;
             'password' => $password,
             'name' => $username,
         ]);
-        var_dump($root);
 
         if ($root['headers']['status-code'] === 201) {
             $output->writeln('Account created successfully');
@@ -286,9 +290,20 @@ EOF;
         $saveConfiguration = $helper->ask($input, $output, $question);
         if ($saveConfiguration) {
             $filePath = './.env';
-            $content = "APPWRITE_ENDPOINT=$endpoint\nAPPWRITE_API_KEY={$key['body']['secret']}\nAPPWRITE_PROJECT_ID=$projectId\n";
+            $content = "export APPWRITE_ENDPOINT=$endpoint\nexport APPWRITE_API_KEY={$key['body']['secret']}\nexport APPWRITE_PROJECT_ID=$projectId\n";
             file_put_contents($filePath, $content);
+            $GLOBALS['APPWRITE_ENDPOINT'] = $endpoint;
+            $GLOBALS['APPWRITE_API_KEY'] = $key['body']['secret'];
+            $GLOBALS['APPWRITE_PROJECT_ID'] = $projectId;
             $output->writeln('Configuration saved to .env');
+
+            $question = new ConfirmationQuestion('Do you want to generate fake data? (yes/no)', false);
+            $runFaker = $helper->ask($input, $output, $question);
+            if ($runFaker) {
+                $output->writeln('Initialising Appwrite Faker Tool...');
+                $fakerTool = new AppwriteFakerTool();
+                $fakerTool->run($input, $output);
+            }
         }
     }
 }
