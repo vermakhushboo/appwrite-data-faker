@@ -34,7 +34,7 @@ class AppwriteFakerTool
         }
         if (in_array('Databases', $answer)) {
             $databases = new Databases();
-            $databases->run();
+            $databases->run($input, $output);
         }
         if (in_array('Storage', $answer)) {
             $storage = new Storage();
