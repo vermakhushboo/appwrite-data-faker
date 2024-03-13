@@ -38,7 +38,7 @@ class AppwriteFakerTool
         }
         if (in_array('Storage', $answer)) {
             $storage = new Storage();
-            $storage->run();
+            $storage->run($input, $output);
         }
         if (in_array('Functions', $answer)) {
             $functions = new Functions();

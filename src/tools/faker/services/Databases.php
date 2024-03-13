@@ -24,6 +24,11 @@ class Databases
         $this->projectId = $GLOBALS['APPWRITE_PROJECT_ID'];
     }
 
+    private function generateDocuments(Input $input, Output $output, $collections)
+    {
+
+    }
+
     private function generateCollections(Input $input, Output $output, $databases)
     {
         $faker = Faker\Factory::create();
@@ -97,6 +102,13 @@ class Databases
         } else {
             $output->writeln('Collections generated: ' . count($collections));
         }
+
+        // $documents = $this->generateDocuments($input, $output, $collections);
+        // if (empty($documents)) {
+        //     $output->writeln('No documents were generated');
+        // } else {
+        //     $output->writeln('Documents generated: ' . count($documents));
+        // }
     }
 }
 
