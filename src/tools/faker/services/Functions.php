@@ -3,6 +3,10 @@
 require 'vendor/autoload.php';
 
 use Appwrite\Faker\Client as FakerClient;
+use Symfony\Component\Console\Helper\QuestionHelper;
+use Symfony\Component\Console\Input\Input;
+use Symfony\Component\Console\Output\Output;
+use Symfony\Component\Console\Question\Question;
 
 class Functions
 {
@@ -19,8 +23,19 @@ class Functions
         $this->projectId = $GLOBALS['APPWRITE_PROJECT_ID'];
     }
 
-    public function run()
+    private function generateFunctions(Input $input, Output $output)
     {
+        $helper = new QuestionHelper();
+        $question = new Question('How many functions do you want to generate? (Default: 10)', 10);
+        $functionsNo = $helper->ask($input, $output, $question);
+
+        $functions = [];
+        return $functions;
+    }
+
+    public function run(Input $input, Output $output)
+    {
+        $functions = $this->generateFunctions($input, $output);
     }
 }
 

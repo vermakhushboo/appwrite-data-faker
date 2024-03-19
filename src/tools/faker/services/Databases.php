@@ -26,7 +26,6 @@ class Databases
 
     private function generateDocuments(Input $input, Output $output, $collections)
     {
-
     }
 
     private function generateCollections(Input $input, Output $output, $databases)
@@ -39,7 +38,7 @@ class Databases
 
         $collections = [];
         // create collectionNos collections for each database
-        for ($i=0; $i<count($databases); $i++) {
+        for ($i = 0; $i < count($databases); $i++) {
             $database = $databases[$i];
             $databaseBody = json_decode($database['body'], true);
             $databaseId = $databaseBody['$id'];
@@ -111,5 +110,3 @@ class Databases
         // }
     }
 }
-
-

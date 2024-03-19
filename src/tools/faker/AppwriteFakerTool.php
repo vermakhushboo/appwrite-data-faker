@@ -42,9 +42,7 @@ class AppwriteFakerTool
         }
         if (in_array('Functions', $answer)) {
             $functions = new Functions();
-            $functions->run();
+            $functions->run($input, $output);
         }
     }
 }
-
-
